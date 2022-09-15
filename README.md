@@ -16,3 +16,11 @@ Practica 2:
 Practica 3:
     Modularizacion: se crea una API a partir de los retardos no bloqueantes diseñados en la Practica 2.
     Se diseña un programa que haga titilar los 3 leds en secuencia, utilizando los modulos antes mencionados.
+    
+Practica 4:
+    4.1 -   Se implementa un sistema antirrebotes, utilizando una maquina de estados finita(MEF). 
+            Cuando se presiona el pulsador, se togglea LED 1. Por otra parte, cuando se libera, se togglea LED 3.
+    
+    4.2 -   Se modulariza el sistema antirrebotes antes mencionado, y se los almacena en la carpeta API.
+            Se crea un programa que modifica la frecuencia de toggle de LED2 cuando se presiona el pulsador, aprovechando los modulos creados
+            en las practicas 3 y 4.
