@@ -102,6 +102,7 @@ int main(void)
 			HAL_Delay(200);
 			BSP_LED_Off(LED3);
 			HAL_Delay(200);
+		break;
 
 		case false:
 			BSP_LED_On(LED1);
@@ -118,6 +119,7 @@ int main(void)
 			HAL_Delay(200);
 			BSP_LED_Off(LED2);
 			HAL_Delay(200);
+			break;
 		}
 	}
 }
