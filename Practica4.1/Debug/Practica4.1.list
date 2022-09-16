@@ -4043,7 +4043,7 @@ void buttonPressed(void) {
 
 080019d2 <buttonReleased>:
 
-/*buttonPressed
+/*buttonReleased
  *Función que togglea LED3 */
 void buttonReleased(void){
  80019d2:	b580      	push	{r7, lr}

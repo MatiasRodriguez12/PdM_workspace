@@ -16,6 +16,15 @@ BUTTON_DOWN,
 BUTTON_RAISING,
 } debounceState_t;
 
+//Prototipos de funciones privadas
+/*buttonPressed
+ *Cuando se presione el pulsador, se togglea LED1*/
+static void buttonPressed(void);
+
+/*buttonReleased
+ *Cuando se libera el pulsador, se togglea LED3*/
+static void buttonReleased(void);
+
 //Variable global privada que adquiere estado TRUE cuando detecta una pulsación valida
 static bool_t buttonPress;
 
@@ -53,14 +62,14 @@ void debounceFSM_update(void){
 
 		/*Estado BUTTON_FALLING:
 		* Verifica que se cumpla el retardo de tiempo para validar una pulsación.
-		* Si detecta que el pulsador se encuentra presionado, actualiza la MEF a estado BUTTON_DOWN.
-		* A su vez, actualiza el estado de la variable buttonPress a TRUE (pulsación detectada).
+		* Si detecta que el pulsador se encuentra presionado, actualiza la MEF a estado BUTTON_DOWN (pulsación detectada).
+		* A su vez, llama a la funcion buttonPressed para togglear LED 1.
 		* Si detecta que el pulsador no se encuentra presionado, actualiza la MEF a estado BUTTON_UP (pulsación no válida). */
 		case BUTTON_FALLING:
 			if (delayRead(&delayButton) == true){
 				if(BSP_PB_GetState(BUTTON_USER)){
 					buttonState=BUTTON_DOWN;
-					buttonPress=true;
+					buttonPressed();
 				}
 				else{
 					buttonState=BUTTON_UP;
@@ -86,11 +95,13 @@ void debounceFSM_update(void){
 		/*Estado BUTTON_RAISING:
 		* Verifica que se cumpla el retardo de tiempo para validar una pulsación.
 		* Si detecta que el pulsador no se encuentra presionado, actualiza la MEF a estado BUTTON_UP (pulsador liberado).
+		* A su vez, llama a la funcion buttonReleased para togglear LED 3.
 		* Si detecta que el pulsador se encuentra presionado, actualiza la MEF a estado BUTTON_DOWN (liberación no válida). */
 		case BUTTON_RAISING:
 			if (delayRead(&delayButton) == true){
 				if(!BSP_PB_GetState(BUTTON_USER)){
 					buttonState=BUTTON_UP;
+					buttonReleased();
 				}
 				else{
 					buttonState=BUTTON_DOWN;
@@ -107,6 +118,20 @@ void debounceFSM_update(void){
 		break;
 	}
 
+}
+
+/*buttonPressed
+ *Función que togglea LED1.
+ *A su vez, asigna valor logico TRUE a la variable buttonPress */
+static void buttonPressed(void) {
+	BSP_LED_Toggle(LED1);
+	buttonPress=true;
+}
+
+/*buttonReleased
+ *Función que togglea LED3. */
+static void buttonReleased(void){
+	BSP_LED_Toggle(LED3);
 }
 
 /*readKey

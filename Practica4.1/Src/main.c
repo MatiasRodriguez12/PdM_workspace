@@ -46,19 +46,19 @@ static void Error_Handler(void);
 /*Prototipos de funciones*/
 /*debounceFSM_init
  *Se encarga de asigar el estado inicial en la MEF utilizada para validación de pulsaciones */
-void debounceFSM_init();
+void debounceFSM_init(void);
 
 /*debounceFSM_update
  *A partir del estado actual del pulsador, actualiza el estado siguiente de la MEF*/
-void debounceFSM_update();
+void debounceFSM_update(void);
 
 /*buttonPressed
  *Cuando se presione el pulsador, se togglea LED1*/
-void buttonPressed();
+void buttonPressed(void);
 
 /*buttonReleased
  *Cuando se libera el pulsador, se togglea LED3*/
-void buttonReleased();
+void buttonReleased(void);
 
 //Declaración de estructura para estados de MEF
 typedef enum{
@@ -207,7 +207,7 @@ void buttonPressed(void) {
 	BSP_LED_Toggle(LED1);
 }
 
-/*buttonPressed
+/*buttonReleased
  *Función que togglea LED3 */
 void buttonReleased(void){
 	BSP_LED_Toggle(LED3);
