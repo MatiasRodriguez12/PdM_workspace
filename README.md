@@ -22,5 +22,10 @@ Practica 4:
             Cuando se presiona el pulsador, se togglea LED 1. Por otra parte, cuando se libera, se togglea LED 3.
     
     4.2 -   Se modulariza el sistema antirrebotes antes mencionado, y se los almacena en la carpeta API.
-            Se crea un programa que modifica la frecuencia de toggle de LED2 cuando se presiona el pulsador, aprovechando los modulos creados
-            en las practicas 3 y 4.
+            Se crea un programa que modifica la frecuencia de toggle de LED2 cuando se presiona el pulsador, 
+            aprovechando los modulos creados en las practicas 3 y 4.
+
+Practica 5:
+    Tomando como referencia el código ejemplo, se crean modulos API para poder utilizar comunicación UART.
+    A partir de la practica 4.2, se modifica el código para que se envíe un mensaje por UART cada vez que
+    se detecte una pulsación o liberación de boton válida.
