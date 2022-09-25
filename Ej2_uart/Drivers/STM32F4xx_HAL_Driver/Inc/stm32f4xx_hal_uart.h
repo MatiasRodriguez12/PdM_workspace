@@ -257,7 +257,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)(struct __UART_HandleTypeDef *huart
 /** @defgroup UART_Word_Length UART Word Length
   * @{
   */
-#define UART_WORDLENGTH_8B                  0x00000000U
+#define UART_WORDLENGTH_8B                  0x00001000U
 #define UART_WORDLENGTH_9B                  ((uint32_t)USART_CR1_M)
 /**
   * @}
