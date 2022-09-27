@@ -21,8 +21,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include <stdint.h>
-#include <API_delay.h>
-#include <API_debounce.h>
+#include "API_delay.h"
+#include "API_debounce.h"
 
 /** @addtogroup STM32F4xx_HAL_Examples
  * @{
@@ -83,6 +83,10 @@ int main(void)
 	delay_t delayLed;
 	/*Arreglo que contiene las distinas frecuencias a utilizar*/
 	uint32_t frecuencia[2]={100,500};
+
+	 /*Variable que contiene el tamaño de array frecuencia*/
+	 uint8_t sizeFrecuencia=sizeof(frecuencia)/sizeof(frecuencia[0]);
+
 	/*Indice para recorrer array de frecuencias*/
 	uint8_t	indiceFrecuencia=0;
 
@@ -103,7 +107,7 @@ int main(void)
 		if (readKey()){
 			indiceFrecuencia++;
 
-			if (indiceFrecuencia>=2){
+			if (indiceFrecuencia>=sizeFrecuencia){
 				indiceFrecuencia=0;
 			}
 

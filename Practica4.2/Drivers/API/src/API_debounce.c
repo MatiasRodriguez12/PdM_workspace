@@ -5,8 +5,8 @@
  *      Author: MATIAS
  */
 
-#include <API_debounce.h>
-#include <API_delay.h>
+#include "API_debounce.h"
+#include "API_delay.h"
 
 //Declaración de estructura para estados de MEF
 typedef enum{
@@ -50,10 +50,12 @@ void debounceFSM_update(void){
 	switch (buttonState){
 		/*Estado BUTTON_UP:
 		 * Si detecta que el pulsador se encuentra presionado, actualiza la MEF a estado BUTTON_FALLING.
+		 * A su vez, se inicia el contador para validacion.
 		 * Si detecta que el pulsador no se encuentra presionado, mantiene la MEF en estado BUTTON_UP. */
 		case BUTTON_UP:
 			if(BSP_PB_GetState(BUTTON_USER)){
 				buttonState=BUTTON_FALLING;
+				delayRead(&delayButton);
 			}
 			else{
 				buttonState=BUTTON_UP;
@@ -82,10 +84,12 @@ void debounceFSM_update(void){
 
 		/*Estado BUTTON_DOWN:
 		* Si detecta que el pulsador no se encuentra presionado, actualiza la MEF a estado BUTTON_RAISING.
+		* A su vez, se inicia el contador para validacion.
 		* Si detecta que el pulsador se encuentra presionado, mantiene la MEF en estado BUTTON_DOWN. */
 		case BUTTON_DOWN:
 			if(!BSP_PB_GetState(BUTTON_USER)){
 				buttonState=BUTTON_RAISING;
+				delayRead(&delayButton);
 			}
 			else{
 				buttonState=BUTTON_DOWN;
