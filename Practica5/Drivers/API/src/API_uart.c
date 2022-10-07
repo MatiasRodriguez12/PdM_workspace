@@ -94,7 +94,7 @@ bool_t uartInit(void){
 /* Función que envia un mensaje por UART.
  * Recibe un punto a array como parametro, el cual contiene el mensaje a enviar.*/
 void uartSendString(uint8_t * pstring){
-	HAL_UART_Transmit(&UartHandle,(uint8_t*) pstring,strlen((const char*) pstring), 0xFFFF);
+	HAL_UART_Transmit(&UartHandle,(uint8_t*) pstring,strlen((const char*) pstring), 1000);
 }
 
 /* Función que envia un mensaje por UART.
