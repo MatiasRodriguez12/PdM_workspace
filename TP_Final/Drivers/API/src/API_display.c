@@ -5,22 +5,20 @@
  *      Author: MATIAS
  */
 
-#include "API_display.h"
-#include "API_debounce.h"
-#include "API_uart.h"
-#include <stdbool.h>
 #include <string.h>
+#include "API_debounce.h"
+#include "API_display.h"
+#include "API_uart.h"
 
 /*Se declara la MEF para manejo de display.*/
 static displayState_t stateDisplay;
-//static uint8_t numeroDisplay[cantidadRepresentacionesDisplay]={nroCero,nroUno,nroDos,nroTres,nroCuatro,nroCinco,nroSeis,nroSiete,nroOcho,nroNueve};
 
 /*Variable privada que almacena el array de estados de puertos GPIO.*/
 static uint8_t numeroDisplay;
 
 /*Variables booleanas privadas utilizadas para la detección de pulsaciones.*/
-static bool displayUP=false;
-static bool displayDOWN=false;
+static bool_t displayUP=false;
+static bool_t displayDOWN=false;
 
 /*Variables privadas utilizadas para la comunicacion por UART.*/
 static uint8_t nuevoValor[]="\n\rEl valor en display es: ";
@@ -268,7 +266,7 @@ void displayFSM_update(void){
 }
 
 /*getStateDisplay()
- *Función que devuelve una copia el array de estados de los puertos GPIO.
+ *Función que devuelve una copia del array de estados de los puertos GPIO.
  *Si detecta que existió pulsación alguna, llama a la función sendValueToUart() para comunicarlo por UART.*/
 uint8_t getStateDisplay(void){
 	uint8_t representacionNumero;

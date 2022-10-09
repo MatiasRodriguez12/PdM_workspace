@@ -10,12 +10,14 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
+#include "main.h"
 #include "API_delay.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_nucleo_144.h"
 
-#define nroCaracteresConversion 5
-#define timeOutUart 0xFFFF
+/*Cantidad de caracteres a enviar por UART*/
+#define NRO_CARACTERES_CONVERSION 5
+
+/*Tiempo maximo para enviar/recibir datos por UART*/
+#define TIME_OUT_UART 0xFFFF
 
 //PARA HACER FUNCIONAR, EN ARCHIVO stm32f4xx_hal_msp.c INCLUI API_uart.h
 

@@ -12,8 +12,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "stm32f4xx_hal.h"  		/* <- HAL include */
-#include "stm32f4xx_nucleo_144.h" 	/* <- BSP include */
+#include "main.h"
 
 /*Tiempo maximo permitido para establecer un retardo ((en ms))*/
 #define MAX_DURATION 30000

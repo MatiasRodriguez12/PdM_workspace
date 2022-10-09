@@ -5,9 +5,9 @@
  *      Author: MATIAS
  */
 
-#include "API_gpio.h"
 #include <stdint.h>
-#include <stdbool.h>
+#include "API_display.h"
+#include "API_gpio.h"
 
 /*gpioDisplay_init():
  *Configura los puertos D0 a D6 como salidas.*/
@@ -72,12 +72,12 @@ void gpioButton_init(void){
  *Función que devuelve el estado del interruptor externo (conectado en D15).
  *Si el pulsador esta presionado, devuelve un estado booleano TRUE.
  *Si el pulsador esta liberado, devuelve un estado booleano FALSE.*/
-bool gpioButton_Read(void){
-	bool stateButton=false;
+bool_t gpioButton_Read(void){
+	bool_t stateButton=false;
 
 	/*Debido a la configuración del puerto D15 como entrada PULL UP, al presionarlo
 	 *setea un estado BAJO al puerto D15.
-	 *Para invertirlo a estado ALTO, se niega la instruccion HAL_GPIO_ReadPin() dentro de la funcion IF.*/
+	 *Para invertirlo a estado ALTO, se niega la instrucción HAL_GPIO_ReadPin() dentro del condicional IF.*/
 	if(!HAL_GPIO_ReadPin(D15_PORT, D15_PIN)){
 		stateButton=true;
 	}
@@ -91,14 +91,29 @@ bool gpioButton_Read(void){
  *Actualiza el estado de los puertos D0 a D6, generando la representación de numeros en el display.*/
 void gpioDisplay_write(uint8_t valorDisplay){
 	uint8_t estadoLed[NUMERO_LEDS_DISPLAY];
+	uint8_t representacion;
+
+	/*Verifica si el parametro de entrada es el adecuado.*/
+	if (valorDisplay == NRO_CERO || valorDisplay == NRO_UNO ||
+	    valorDisplay == NRO_DOS || valorDisplay == NRO_TRES ||
+		valorDisplay == NRO_CUATRO || valorDisplay == NRO_CINCO ||
+		valorDisplay == NRO_SEIS || valorDisplay == NRO_SIETE ||
+		valorDisplay == NRO_OCHO || valorDisplay == NRO_NUEVE){
+		representacion=valorDisplay;
+	}
+	else{
+		/*En caso de no serlo, enciende LED1 de manera permanente*/
+		while(1){
+			BSP_LED_On(LED1);
+		}
+	}
 
 	for (int i=0;i<NUMERO_LEDS_DISPLAY;i++){
 		/*Se separa y analiza cada bit del array de entrada.
-		 *Se genera un nuevo array en donde se almacena el estado que debera
-		 *adquirir cada puerto GPIO de salida.
+		 *Se genera un nuevo array en donde se almacena el estado que debera adquirir cada puerto GPIO de salida.
 		 *Si el bit posee un valor 1, se le asigna estado HIGH.
 		 *Si el bit posee un valor 0, se le asigna un estado LOW*/
-		if((valorDisplay>>i)&MASCARA_SEPARA_BITS){
+		if((representacion>>i)&MASCARA_SEPARA_BITS){
 			estadoLed[i]=HIGH;
 		}
 		else{

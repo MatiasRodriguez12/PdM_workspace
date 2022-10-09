@@ -33,6 +33,7 @@ void debounceFSM_init(void);
 
 /*debounceFSM_update
  *A partir del estado actual del pulsador, actualiza el estado siguiente de la MEF.
+ *Se le debe indicar (por parametro de entrada) cual es el pulsador a analizar.
  *
  *Parametro: PULSADOR_UP/PULSADOR_DOWN*/
 void debounceFSM_update(uint8_t pulsador);

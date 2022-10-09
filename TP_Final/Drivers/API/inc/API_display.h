@@ -17,8 +17,9 @@
 
 /*Se representa como un array de 7 bits los estados en que se
  *deben encontrar los puertos de D6 a D0 para representar los numeros de 0 a 9.
- *A continuacion se muestra el valor correspondiente de dicho array, expresado en base decimal.
- *							Orden: D6 - D5 - D4 - D3 - D2 - D1 - D0*/
+ *A continuaciÓn se muestra el valor correspondiente de dicho array, expresado en base decimal.
+ *					  Led display:  b -  a -  f -  g -  c -  d  - e
+ *							pines: D6 - D5 - D4 - D3 - D2 - D1 - D0*/
 #define NRO_CERO 	119			//  1 -  1 -  1 -  0 -  1 -  1 -  1
 #define NRO_UNO		68			//  1 -  0 -  0 -  0 -  1 -  0 -  0
 #define NRO_DOS		107			//  1 -  1 -  0 -  1 -  0 -  1 -  1

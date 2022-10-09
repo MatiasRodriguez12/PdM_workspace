@@ -64,7 +64,8 @@ int main(void)
   /* Initialize BSP PB for BUTTON_USER */
   BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
 
-  /* Initialize BSP Led for LED2*/
+  /* Initialize BSP Led for LED1 and LED2*/
+  BSP_LED_Init(LED1);
   BSP_LED_Init(LED2);
 
   /*Inicializa los puertos GPIO*/
@@ -80,11 +81,11 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-	  /*Actualiza los estados de la MEF para los pulsadores UP y DOWN*/
+	  /*Actualiza los estados de la MEF de validación de pulsaciones para los pulsadores UP y DOWN*/
 	  debounceFSM_update(PULSADOR_UP);
 	  debounceFSM_update(PULSADOR_DOWN);
 
-	  /*Actualiza el estado de la MEFdel display*/
+	  /*Actualiza el estado de la MEF del display*/
 	  displayFSM_update();
 
 	  /*Setea los puertos GPIO*/

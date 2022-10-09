@@ -5,15 +5,13 @@
  *      Author: MATIAS
  */
 
-#include "API_debounce.h"
 #include "API_delay.h"
-#include "API_uart.h"
+#include "API_debounce.h"
 #include "API_gpio.h"
-#include "main.h"
+#include "API_uart.h"
 
-//Prototipos de funciones privadas
 /*buttonPressed
- *Funcion privada utilizada para la deteccion de pulsaciones
+ *Función privada utilizada para la deteccion de pulsaciones
  *
  *Parametro: PULSADOR_UP/PULSADOR_DOWN*/
 static void buttonPressed(uint8_t button);
@@ -44,27 +42,36 @@ void debounceFSM_init(void){
 }
 
 /*debounceFSM_update
- *Verifica el estado del pulsador y actualiza el estado de la MEF*/
+ *Verifica el estado del pulsador y actualiza el estado de la MEF
+ *
+ *Parametro: PULSADOR_UP/PULSADOR_DOWN*/
 void debounceFSM_update(uint8_t pulsador){
 
 	uint8_t buttonSel=0;
-	//Verifica que pulsador se debe analizar, boton UP o boton DOWN.
+	//Verifica valor de parametro de entrada, el cual indica que pulsador se debe analizar (BU o BD).
 	if (pulsador==PULSADOR_UP){
 		buttonState=StateBU;
 		buttonSel=PULSADOR_UP;
 	}
-	else{
+	else if (pulsador==PULSADOR_DOWN){
 		buttonState=StateBD;
 		buttonSel=PULSADOR_DOWN;
+	}
+	else{
+		/*En caso de error en parametro, enciende LED1 de manera permanente*/
+		while(1){
+			BSP_LED_On(LED1);
+		}
 	}
 
 	switch (buttonState){
 		/*Estado BUTTON_UP:
-		 * Comprueba que pulsador se esta analizando para actualizar la estrucura que corresponda.
+		 * Comprueba que pulsador se está analizando para actualizar la estrucura que corresponda.
 		 * Si detecta que el pulsador se encuentra presionado, actualiza la MEF a estado BUTTON_FALLING.
 		 * En estas condiciones, inicia al contador para validación.
 		 * Si detecta que el pulsador no se encuentra presionado, mantiene la MEF en estado BUTTON_UP. */
 		case BUTTON_UP:
+			/*Analiza BU.*/
 			if(buttonSel==PULSADOR_UP){
 				if(BSP_PB_GetState(BUTTON_USER)){
 					delayRead(&delayButtonBU);
@@ -74,6 +81,7 @@ void debounceFSM_update(uint8_t pulsador){
 					StateBU=BUTTON_UP;
 				}
 			}
+			/*Analiza BD.*/
 			else{
 				if(gpioButton_Read()){
 					delayRead(&delayButtonBD);
@@ -93,6 +101,7 @@ void debounceFSM_update(uint8_t pulsador){
 		* A su vez, llama a la funcion buttonPressed indicar dicha pulsacion.
 		* Si detecta que el pulsador no se encuentra presionado, actualiza la MEF a estado BUTTON_UP (pulsación no válida). */
 		case BUTTON_FALLING:
+			/*Analiza BU.*/
 			if(buttonSel==PULSADOR_UP){
 				if (delayRead(&delayButtonBU)){
 					if(BSP_PB_GetState(BUTTON_USER)){
@@ -107,6 +116,7 @@ void debounceFSM_update(uint8_t pulsador){
 					StateBU=BUTTON_FALLING;
 				}
 			}
+			/*Analiza BD.*/
 			else{
 				if (delayRead(&delayButtonBD)){
 					if(gpioButton_Read()){
@@ -130,6 +140,7 @@ void debounceFSM_update(uint8_t pulsador){
 		* En estas condiciones, inicia al contador para validación.
 		* Si detecta que el pulsador se encuentra presionado, mantiene la MEF en estado BUTTON_DOWN. */
 		case BUTTON_DOWN:
+			/*Analiza BU.*/
 			if(buttonSel==PULSADOR_UP){
 				if(!BSP_PB_GetState(BUTTON_USER)){
 					delayRead(&delayButtonBU);
@@ -139,6 +150,7 @@ void debounceFSM_update(uint8_t pulsador){
 					StateBU=BUTTON_DOWN;
 				}
 			}
+			/*Analiza BD.*/
 			else{
 				if(!gpioButton_Read()){
 					delayRead(&delayButtonBD);
@@ -157,6 +169,7 @@ void debounceFSM_update(uint8_t pulsador){
 		* Si detecta que el pulsador no se encuentra presionado, actualiza la MEF a estado BUTTON_UP (pulsador liberado).
 		* Si detecta que el pulsador se encuentra presionado, actualiza la MEF a estado BUTTON_DOWN (liberación no válida). */
 		case BUTTON_RAISING:
+			/*Analiza BU.*/
 			if(buttonSel==PULSADOR_UP){
 				if (delayRead(&delayButtonBU)){
 					if(!BSP_PB_GetState(BUTTON_USER)){
@@ -170,6 +183,7 @@ void debounceFSM_update(uint8_t pulsador){
 					StateBU=BUTTON_RAISING;
 				}
 			}
+			/*Analiza BD.*/
 			else{
 				if (delayRead(&delayButtonBD)){
 					if(!gpioButton_Read()){
@@ -194,7 +208,8 @@ void debounceFSM_update(uint8_t pulsador){
 }
 
 /*buttonPressed
- *Función que indica que boton fue presionado. */
+ *Función que indica que boton fue presionado.
+ *Asigna un valor booleano TRUE a las variables buttonUPPress o buttonDOWNPress, segun corresponda. */
 static void buttonPressed(uint8_t button) {
 	if(button==PULSADOR_UP){
 		buttonUPPress=true;
@@ -206,7 +221,7 @@ static void buttonPressed(uint8_t button) {
 
 
 /*readKeyUP
- *Función booleana que devuelve una copia del valor de la variable buttonPressUp.
+ *Función booleana que devuelve una copia del valor de la variable buttonUPPress.
  *Si dicha variable posee valor lógico TRUE, la reinicializa a FALSE.*/
 bool_t readKeyUP(void){
 	bool_t buttonStateAux;
@@ -222,7 +237,7 @@ bool_t readKeyUP(void){
 }
 
 /*readKeyDOWN
- *Función booleana que devuelve una copia del valor de la variable buttonPressDown.
+ *Función booleana que devuelve una copia del valor de la variable buttonDOWNPress.
  *Si dicha variable posee valor lógico TRUE, la reinicializa a FALSE.*/
 bool_t readKeyDOWN(void){
 	bool_t buttonStateAux;

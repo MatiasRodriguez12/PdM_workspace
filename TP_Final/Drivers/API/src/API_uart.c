@@ -5,11 +5,10 @@
  *      Author: MATIAS
  */
 
+#include <string.h>
 #include "API_debounce.h"
 #include "API_delay.h"
 #include "API_uart.h"
-#include <string.h>
-#include "main.h"
 
 UART_HandleTypeDef UartHandle;
 
@@ -38,9 +37,9 @@ PUTCHAR_PROTOTYPE
  * Devuelve valor booleano TRUE si la iniciación fue exitosa.*/
 bool_t uartInit(void){
 	 bool_t successfullInitialization=true;
-	 uint8_t baudRateValue[nroCaracteresConversion]={};
-	 uint8_t wordLengthValue[nroCaracteresConversion]={};
-	 uint8_t StopBitsValue[nroCaracteresConversion]={};
+	 uint8_t baudRateValue[NRO_CARACTERES_CONVERSION]={};
+	 uint8_t wordLengthValue[NRO_CARACTERES_CONVERSION]={};
+	 uint8_t StopBitsValue[NRO_CARACTERES_CONVERSION]={};
 
 	  /*##-1- Configure the UART peripheral ######################################*/
 	  /* Put the USART peripheral in the Asynchronous mode (UART Mode) */
@@ -94,7 +93,7 @@ bool_t uartInit(void){
  * Función que envia un mensaje por UART.
  * Recibe un puntero a array como parametro, el cual contiene el mensaje a enviar.*/
 void uartSendString(uint8_t * pstring){
-	HAL_UART_Transmit(&UartHandle,(uint8_t*) pstring,strlen((const char*) pstring), timeOutUart);
+	HAL_UART_Transmit(&UartHandle,(uint8_t*) pstring,strlen((const char*) pstring), TIME_OUT_UART);
 }
 
 /* uartSendStringSize:
@@ -102,5 +101,5 @@ void uartSendString(uint8_t * pstring){
  * Recibe un punto a array como parametro, el cual contiene el mensaje a enviar.
  * Tambien se debe indicar la cantidad de caracteres que deben ser enviados.*/
 void uartSendStringSize(uint8_t * pstring, uint16_t size){
-	HAL_UART_Transmit(&UartHandle,(uint8_t*) pstring,size, timeOutUart);
+	HAL_UART_Transmit(&UartHandle,(uint8_t*) pstring,size, TIME_OUT_UART);
 }

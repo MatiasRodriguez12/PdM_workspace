@@ -8,9 +8,9 @@
 #ifndef API_INC_API_GPIO_H_
 #define API_INC_API_GPIO_H_
 
-#include "main.h"
 #include <stdint.h>
-#include <stdbool.h>
+#include "main.h"
+#include "API_delay.h"
 
 /*DEFINICIONES DE PUERTOS Y PINES PARA TERMINALES DE D0 A D6*/
 #define D0_PORT 	GPIOG
@@ -52,7 +52,7 @@ void gpioButton_init(void);
 
 /*gpioButton_Read():
  *Función que devuelve el estado del interruptor externo (conectado en D15).*/
-bool gpioButton_Read(void);
+bool_t gpioButton_Read(void);
 
 /*gpioDisplay_write():
  *Actualiza el estado de los puertos D0 a D6, generando la representación de números en el display.
