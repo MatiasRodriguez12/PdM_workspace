@@ -29,3 +29,9 @@ Practica 5:
     Tomando como referencia el código ejemplo, se crean modulos API para poder utilizar comunicación UART.
     A partir de la practica 4.2, se modifica el código para que se envíe un mensaje por UART cada vez que
     se detecte una pulsación o liberación de boton válida.
+
+TP Final:
+    Manejo de un display led de 7 segmentos. 
+    Se agrega un segundo interruptor por GPIO. 
+    Cada vez que el usuario presione un interruptor, el número mostrado aumentará o disminuirá (rango de 0 a 9) según corresponda. 
+    También se envia por UART un aviso cada vez que se genere un cambio de estado de la MEF, indicando el nuevo valor representado en el display.
