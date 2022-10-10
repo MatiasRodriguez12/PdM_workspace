@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    PdM_workspace/TP_Final/Src/main.c
   * @author  Rodriguez, Matías Nahuel
-  * @brief   Trabajo Practico final de la asignatura Programación de microcontroladores.
+  * @brief   Trabajo Práactico final de la asignatura Programación de microcontroladores.
   ******************************************************************************
 
   */

@@ -10,13 +10,14 @@
 
 #include <stdint.h>
 
-/*Definición utilizada para representar el número del estado actual de la MEF y enviarlo por UART.
+/*Constante utilizada para realizar la conversión del número del estado actual de la MEF a caracter y enviarlo por UART.
  *Se requieren 2 caracteres, el número propiamente dicho y el caracter nulo.*/
 #define NRO_CARACTERES_ESTADO 2
-//#define cantidadRepresentacionesDisplay 10
 
 /*Se representa como un array de 7 bits los estados en que se
- *deben encontrar los puertos de D6 a D0 para representar los numeros de 0 a 9.
+ *deben encontrar los puertos (D6 a D0) para poder representar los numeros de 0 a 9 en el display.
+ *		1: Puerto en HIGH.
+ *		0: Puerto en LOW.
  *A continuaciÓn se muestra el valor correspondiente de dicho array, expresado en base decimal.
  *					  Led display:  b -  a -  f -  g -  c -  d  - e
  *							pines: D6 - D5 - D4 - D3 - D2 - D1 - D0*/
@@ -45,15 +46,15 @@ State_8,
 State_9,
 } displayState_t;
 
-/*displayFSM_init().
+/*displayFSM_init.
  *Función que inicializa la MEF de display.*/
 void displayFSM_init(void);
 
-/*displayFSM_update().
+/*displayFSM_update.
  *Función que actualiza el estado de la MEF de display.*/
 void displayFSM_update(void);
 
-/*getStateDisplay()
+/*getStateDisplay.
  *Función que devuelve el array de estado de los puertos GPIO, según el estado actual de la MEF de display.*/
 uint8_t getStateDisplay(void);
 

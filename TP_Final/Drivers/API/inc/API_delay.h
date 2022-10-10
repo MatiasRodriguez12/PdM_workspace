@@ -30,7 +30,8 @@ typedef struct{
 /*Prototipos de funciones*/
 
 /*delayInit:
-  Se encarga de inicializar el valor de toggle de led. No inicializa el contador.
+  Inicializa la estructura para los retardos no bloqueantes.
+  No inicializa el contador.
 
   Parametros:
   Puntero a memoria delay.

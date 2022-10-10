@@ -26,10 +26,10 @@ static uint8_t BUpress[]="\n\n\rButton UP presionado. ";
 static uint8_t BDpress[]="\n\n\rButton DOWN presionado. ";
 
 /*Función privada que envia el mensaje por UART.*/
-static void sendValueToUart(void);
+static void sendMessageByUart(void);
 
-/*displayFSM_init().
- *Funcion que inicializa la MEF de display.
+/*displayFSM_init.
+ *Función que inicializa la MEF de display.
  *A su vez, inicializa la UART.
  *Si inicia correctamente, setea LED 2 y asigna al estado 0 como estado inicial de la MEF de display.
  *Envia mensaje por UART indicando el estado inicial de la MEF.*/
@@ -38,18 +38,19 @@ void displayFSM_init(void){
 		BSP_LED_On(LED2);
 		stateDisplay=State_0;
 		numeroDisplay=NRO_CERO;
-		sendValueToUart();
+		sendMessageByUart();
 	}
 }
 
-/*displayFSM_update().
+/*displayFSM_update.
  *Función que actualiza el estado la MEF de display.*/
 void displayFSM_update(void){
 
 	switch(stateDisplay){
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 1.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 9.
+		/*State_0:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 1.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 9.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 0.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_0:
@@ -69,8 +70,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 2.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 0.
+		/*State_1:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 2.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 0.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 1.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_1:
@@ -90,8 +92,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 3.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 1.
+		/*State_2:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 3.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 1.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 2.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_2:
@@ -111,8 +114,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 4.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 2.
+		/*State_3:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 4.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 2.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 3.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_3:
@@ -132,8 +136,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 5.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 3.
+		/*State_4:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 5.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 3.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 4.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_4:
@@ -153,8 +158,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 6.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 4.
+		/*State_5:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 6.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 4.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 5.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_5:
@@ -174,8 +180,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 7.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 5.
+		/*State_6:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 7.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 5.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 6.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_6:
@@ -195,8 +202,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 8.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 6.
+		/*State_7:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 8.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 6.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 7.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_7:
@@ -216,8 +224,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 9.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 7.
+		/*State_8:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 9.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 7.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 8.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_8:
@@ -237,8 +246,9 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Si se detecta pulsación en boton UP, se avanza al estado 0.
-		 *Si se detecta pulsación en boton DOWN, se retroce al estado 8.
+		/*State_9:
+		 *Si se detecta pulsación en boton UP, se avanza al estado 0.
+		 *Si se detecta pulsación en boton DOWN, se retrocede al estado 8.
 		 *Si no se detecta pulsación alguna, se mantiene en estado 9.
 		 *Se actualiza el valor de array de estados en variable numeroDisplay.*/
 		case State_9:
@@ -258,29 +268,29 @@ void displayFSM_update(void){
 			}
 		break;
 
-		/*Por default, se retorna la MEF a su estado inicial.*/
+		/*Por default, la MEF retorna a su estado inicial.*/
 		default:
 		displayFSM_init();
 		break;
 	}
 }
 
-/*getStateDisplay()
+/*getStateDisplay.
  *Función que devuelve una copia del array de estados de los puertos GPIO.
- *Si detecta que existió pulsación alguna, llama a la función sendValueToUart() para comunicarlo por UART.*/
+ *Si detecta que existió pulsación alguna, llama a la función sendMessageByUart para comunicarlo por UART.*/
 uint8_t getStateDisplay(void){
 	uint8_t representacionNumero;
 	if(displayUP==true || displayDOWN==true){
-		sendValueToUart();
+		sendMessageByUart();
 	}
 	representacionNumero = numeroDisplay;
 	return representacionNumero;
 }
 
-/*sendValueToUart()
+/*sendMessageByUart.
  *Función privada que comunica por UART la pulsación detectada.
  *Indica que boton fue presionado, junto con el valor expresado en el display.*/
-static void sendValueToUart(void){
+static void sendMessageByUart(void){
 	uint8_t numero[NRO_CARACTERES_ESTADO]={};
 	if (displayUP==true){
 		uartSendString((uint8_t*)BUpress);
@@ -290,6 +300,7 @@ static void sendValueToUart(void){
 		uartSendString((uint8_t*)BDpress);
 		displayDOWN=false;
 	}
+	/*Se convierte el valor de estado de MEF a caracter y se envia por UART.*/
 	sprintf((char*) numero, "%d",(int) stateDisplay);
 	uartSendString((uint8_t*)nuevoValor);
 	uartSendString((uint8_t*)numero);

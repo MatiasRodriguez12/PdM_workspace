@@ -42,19 +42,19 @@ typedef enum{
 	HIGH
 } gpio_state;
 
-/*gpioDisplay_init():
+/*gpioDisplay_init:
  *Configura los puertos D0 a D6 como salidas.*/
 void gpioDisplay_init(void);
 
-/*gpioButton_init():
+/*gpioButton_init:
  *Configura el puerto D15 como entrada.*/
 void gpioButton_init(void);
 
-/*gpioButton_Read():
+/*gpioButton_Read:
  *Función que devuelve el estado del interruptor externo (conectado en D15).*/
 bool_t gpioButton_Read(void);
 
-/*gpioDisplay_write():
+/*gpioDisplay_write:
  *Actualiza el estado de los puertos D0 a D6, generando la representación de números en el display.
  *
  *Parametro: Array de estado de puertos GPIO.*/

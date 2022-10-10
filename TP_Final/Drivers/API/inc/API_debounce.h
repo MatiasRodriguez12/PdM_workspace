@@ -23,6 +23,7 @@ BUTTON_RAISING,
 /*Tiempo empleado para validar una pulsación de boton (en ms)*/
 #define TIME_VALID_PUSH 40
 
+/*Identificadores para pulsadores BU y BD*/
 #define PULSADOR_UP 0
 #define PULSADOR_DOWN 1
 

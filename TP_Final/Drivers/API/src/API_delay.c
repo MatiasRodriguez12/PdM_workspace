@@ -8,7 +8,8 @@
 #include "API_delay.h"
 
 /*DelayInit:
- *Inicializa la estructura para los retardos no bloqueantes.*/
+ *Inicializa la estructura para los retardos no bloqueantes.
+ *No inicializa el contador.*/
 void delayInit( delay_t * delay, tick_t duration ){
 	/*Verifica si los parametros introducidos son los adecuados.
 	 *Almacena el valor de retardo en el parametro duration. */
@@ -25,7 +26,9 @@ void delayInit( delay_t * delay, tick_t duration ){
 }
 
 /*DelayRead:
- *Función que inicializa la cuenta de tiempo.*/
+  Se encarga de inicializar el contador.
+  En primer lugar toma una marca de tiempo, luego la cual (en cada llamado) se compara con el tiempo actual.
+  Si la diferencia entre el tiempo actual y la marca de tiempo es mayor a la duracion prefijada, devuelve un valor booleano TRUE.*/
 bool_t delayRead( delay_t * delay ){
 	tick_t currentTime;
 	bool_t completedTime=false;

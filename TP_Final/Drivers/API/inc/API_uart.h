@@ -48,7 +48,7 @@ bool_t uartInit(void);
  * Función que envia un mensaje por UART.
  * Recibe un puntero a array como parametro, el cual contiene el mensaje a enviar.
  *
- * Parametro: string que contiene el mensaje a enviar.*/
+ * Parametro: array que contiene el mensaje a enviar.*/
 void uartSendString(uint8_t * pstring);
 
 /* uartSendStringSize:
@@ -56,7 +56,7 @@ void uartSendString(uint8_t * pstring);
  * Recibe un punto a array como parametro, el cual contiene el mensaje a enviar.
  * Tambien se debe indicar la cantidad de caracteres que deben ser enviados.
  *
- * Parametros: string que contiene el mensaje a enviar.
+ * Parametros: array que contiene el mensaje a enviar.
  * 			   cantidad de caracteres a enviar.*/
 void uartSendStringSize(uint8_t * pstring, uint16_t size);
 
@@ -64,7 +64,7 @@ void uartSendStringSize(uint8_t * pstring, uint16_t size);
  * Función utilizada para la recepción de mensajes por UART.
  * Esta función no esta desarrollada en este proyecto.
  *
- * Parametros: String donde se va a almacenar la palabra recibida.
+ * Parametros: array donde se va a almacenar la palabra recibida.
  * 			   Cantidad de caracteres a almacenar.*/
 void uartReceiveStringSize(uint8_t * pstring, uint16_t size);
 
